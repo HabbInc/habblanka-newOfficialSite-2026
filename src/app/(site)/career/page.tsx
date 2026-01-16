@@ -42,8 +42,8 @@ export default function CareerPage() {
 
   return (
     <main className="min-h-screen">
-      <div className="2xl:py-20 py-11 bg-gradient-to-b from-blue/5 to-transparent dark:from-blue/10">
-        <div className="container">
+      <div className='relative w-full pt-44 2xl:pb-20 pb-10 before:absolute before:w-full before:h-full before:bg-linear-to-r before:from-blue_gradient before:via-white before:to-yellow_gradient before:rounded-full before:top-24 before:blur-3xl before:-z-10 dark:before:from-dark_blue_gradient dark:before:via-black dark:before:to-dark_yellow_gradient dark:before:rounded-full dark:before:blur-3xl dark:before:-z-10'>
+        <div className="container relative z-10">
           <motion.div {...fadeInUp} className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 mt-20">
               <TextGenerateEffect words="Join Our" />

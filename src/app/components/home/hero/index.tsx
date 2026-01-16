@@ -42,9 +42,9 @@ function HeroSection() {
             {/* ---------------- heading text --------------- */}
             <div className='relative flex flex-col text-center items-center gap-4'>
               <h1 className='leading-tight'>
-                <TextGenerateEffect words="Engineering software that accelerates growth" />
+                <TextGenerateEffect words="Your Growth, Engineered by HABB" />
                 <TextGenerateEffect
-                  words="for global growth"
+                  words="for Global Scale"
                   delay={0.8}
                   className="italic font-normal instrument-font"
                 />

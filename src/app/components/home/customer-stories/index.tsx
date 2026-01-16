@@ -34,9 +34,9 @@ function CustomerStories() {
                       “HABB's engineering transformed our vision into market-ready software!”
                     </h3>
                     <div className="flex flex-col gap-1">
-                      <p className="text-white font-medium">Kabir Shah</p>
+                      <p className="text-white font-medium">Senth Vyra</p>
                       <p className="text-white/60 text-sm font-medium">
-                        Founder of Chipsland
+                        Software Engineer
                       </p>
                     </div>
                   </div>
@@ -97,9 +97,9 @@ function CustomerStories() {
                     </h2>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="font-medium">Kabir Shah</p>
+                    <p className="font-medium">Senth Vyra</p>
                     <p className="text-dark_black/60 dark:text-white/60 text-sm font-medium">
-                      Founder of Chipsland
+                      Software Engineer
                     </p>
                   </div>
                 </div>

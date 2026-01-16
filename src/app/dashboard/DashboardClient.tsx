@@ -31,8 +31,10 @@ type FaqItem = WithId<{
 
 type EventItem = WithId<{
   title: string
-  description: string
-  link: string
+  excerpt: string
+  content: string
+  author: string
+  tags: string
   image: string
   _imageFile?: File | null
 }>
@@ -54,7 +56,7 @@ type TabId = "team" | "faq" | "events" | "careers"
 const TABS: Array<{ id: TabId; label: string; icon: string }> = [
   { id: "team", label: "Team", icon: "mdi:account-group" },
   { id: "faq", label: "FAQ", icon: "mdi:help-circle" },
-  { id: "events", label: "Events", icon: "mdi:calendar-star" },
+  { id: "events", label: "Blogs", icon: "mdi:post" },
   { id: "careers", label: "Careers", icon: "mdi:briefcase" },
 ]
 
@@ -121,7 +123,7 @@ export default function DashboardClient() {
     () => [
       { label: "Team", value: team.length, icon: "mdi:account-group", color: "text-purple_blue", bg: "bg-purple_blue/10" },
       { label: "FAQs", value: faqs.length, icon: "mdi:help-circle", color: "text-blue-500", bg: "bg-blue-500/10" },
-      { label: "Events", value: events.length, icon: "mdi:calendar-star", color: "text-orange-500", bg: "bg-orange-500/10" },
+      { label: "Blogs", value: events.length, icon: "mdi:post", color: "text-orange-500", bg: "bg-orange-500/10" },
       { label: "Careers", value: careers.length, icon: "mdi:briefcase", color: "text-cyan-500", bg: "bg-cyan-500/10" },
     ],
     [team.length, faqs.length, events.length, careers.length],
@@ -133,7 +135,7 @@ export default function DashboardClient() {
       const [teamRes, faqRes, eventRes, careerRes] = await Promise.all([
         fetch("/api/team"),
         fetch("/api/faq"),
-        fetch("/api/events"),
+        fetch("/api/blogs"),
         fetch("/api/careers"),
       ])
 
@@ -342,33 +344,38 @@ export default function DashboardClient() {
   }
 
   const createEventItem = async () => {
-    if (!newEvent.title?.trim() || !newEvent.description?.trim() || !newEvent.link?.trim() || !newEvent._imageFile) {
-      toast.error("All fields and image are required")
+    if (!newEvent.title?.trim() || !newEvent.content?.trim()) {
+      toast.error("Title and content are required")
       return
     }
 
     setSaving(true)
     try {
-      const image = await uploadToImgbb(newEvent._imageFile)
-      const response = await fetch("/api/events", {
+      let image = ''
+      if (newEvent._imageFile) {
+        image = await uploadToImgbb(newEvent._imageFile) || ''
+      }
+      const response = await fetch("/api/blogs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: newEvent.title,
-          description: newEvent.description,
-          link: newEvent.link,
+          excerpt: newEvent.excerpt || '',
+          content: newEvent.content,
+          author: newEvent.author || 'HABB Team',
+          tags: newEvent.tags?.split(',').map(t => t.trim()).filter(Boolean) || [],
           image,
         }),
       })
 
       if (!response.ok) throw new Error("Create failed")
-      toast.success("Event added")
+      toast.success("Blog posted")
       setNewEvent({})
       setEventImageKey(Date.now())
       await loadAll()
     } catch (error) {
       console.error(error)
-      toast.error("Unable to add event")
+      toast.error("Unable to post blog")
     } finally {
       setSaving(false)
     }
@@ -383,23 +390,25 @@ export default function DashboardClient() {
         image = (await uploadToImgbb(item._imageFile)) || image
       }
 
-      const response = await fetch(`/api/events/${item.id}`, {
+      const response = await fetch(`/api/blogs/${item.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: item.title,
-          description: item.description,
-          link: item.link,
+          excerpt: item.excerpt || '',
+          content: item.content,
+          author: item.author || 'HABB Team',
+          tags: typeof item.tags === 'string' ? item.tags.split(',').map(t => t.trim()).filter(Boolean) : item.tags || [],
           image,
         }),
       })
 
       if (!response.ok) throw new Error("Update failed")
-      toast.success("Event updated")
+      toast.success("Blog updated")
       await loadAll()
     } catch (error) {
       console.error(error)
-      toast.error("Unable to update event")
+      toast.error("Unable to update blog")
     } finally {
       setSaving(false)
     }
@@ -409,13 +418,13 @@ export default function DashboardClient() {
     if (!id) return
     setSaving(true)
     try {
-      const response = await fetch(`/api/events/${id}`, { method: "DELETE" })
+      const response = await fetch(`/api/blogs/${id}`, { method: "DELETE" })
       if (!response.ok) throw new Error("Delete failed")
-      toast.success("Event removed")
+      toast.success("Blog removed")
       await loadAll()
     } catch (error) {
       console.error(error)
-      toast.error("Unable to delete event")
+      toast.error("Unable to delete blog")
     } finally {
       setSaving(false)
     }
@@ -880,22 +889,22 @@ export default function DashboardClient() {
     <section className="bg-white dark:bg-dark_black rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-white/10">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
         <h2 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
-          <Icon icon="mdi:calendar-star" width={28} className="text-purple_blue" />
-          Events & Highlights
+          <Icon icon="mdi:post" width={28} className="text-purple_blue" />
+          Blog Posts
         </h2>
         <button
           onClick={() => scrollToForm(eventFormRef)}
           className="flex items-center gap-2 px-6 py-3 rounded-xl bg-purple_blue text-white font-semibold shadow-lg hover:shadow-xl hover:bg-purple-800 transition-all"
         >
           <Icon icon="mdi:plus-circle" width={20} />
-          Add Event
+          New Blog Post
         </button>
       </div>
 
       <div>
-        <h3 className="font-bold text-xl mb-4">Manage Events ({events.length})</h3>
+        <h3 className="font-bold text-xl mb-4">Published Blogs ({events.length})</h3>
         {events.length === 0 && (
-          <p className="text-sm text-gray-500 mb-6">Share your first event using the form below.</p>
+          <p className="text-sm text-gray-500 mb-6">Write your first blog post using the form below.</p>
         )}
         <div className="grid md:grid-cols-2 gap-4">
           {events.map((item, index) => (
@@ -903,21 +912,26 @@ export default function DashboardClient() {
               key={item.id ?? `${item.title}-${index}`}
               className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-dark_black/40 p-5 shadow-sm hover:shadow-lg transition"
             >
-              <img
-                src={item._imageFile ? URL.createObjectURL(item._imageFile) : item.image}
-                alt={item.title}
-                className="w-full h-36 object-cover rounded-lg border-2 border-purple_blue mb-4"
-              />
+              {item.image && (
+                <img
+                  src={item._imageFile ? URL.createObjectURL(item._imageFile) : item.image}
+                  alt={item.title}
+                  className="w-full h-36 object-cover rounded-lg border-2 border-purple_blue mb-4"
+                />
+              )}
               <p className="font-semibold mb-1 truncate">{item.title}</p>
-              <p className="text-sm text-gray-600 mb-3 line-clamp-3">{item.description}</p>
-              {item.link && (
-                <a href={item.link} target="_blank" rel="noreferrer" className="text-sm text-blue-600 mb-3 inline-block">
-                  View Link
-                </a>
+              <p className="text-xs text-gray-500 mb-2">By {item.author || 'HABB Team'}</p>
+              <p className="text-sm text-gray-600 mb-3 line-clamp-2">{item.excerpt || item.content?.substring(0, 100)}</p>
+              {item.tags && (
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {(typeof item.tags === 'string' ? item.tags.split(',') : item.tags).map((tag: string, i: number) => (
+                    <span key={i} className="px-2 py-0.5 bg-purple_blue/10 text-purple_blue text-xs rounded-full">{tag.trim()}</span>
+                  ))}
+                </div>
               )}
               <div className="flex flex-wrap gap-2">
                 <button
-                  onClick={() => handleReorder(events, setEvents, "/api/events/reorder", index, "up")}
+                  onClick={() => handleReorder(events, setEvents, "/api/blogs/reorder", index, "up")}
                   disabled={index === 0}
                   className="p-2 rounded-lg bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Move up"
@@ -925,7 +939,7 @@ export default function DashboardClient() {
                   <Icon icon="mdi:arrow-up" width={16} />
                 </button>
                 <button
-                  onClick={() => handleReorder(events, setEvents, "/api/events/reorder", index, "down")}
+                  onClick={() => handleReorder(events, setEvents, "/api/blogs/reorder", index, "down")}
                   disabled={index === events.length - 1}
                   className="p-2 rounded-lg bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Move down"
@@ -956,7 +970,7 @@ export default function DashboardClient() {
       <div ref={eventFormRef} className="mt-10 pt-8 border-t border-gray-200 dark:border-white/10">
         <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
           <Icon icon="mdi:plus-circle" width={24} className="text-purple_blue" />
-          Add New Event
+          Write New Blog Post
         </h3>
         <form
           className="grid gap-4"
@@ -973,37 +987,64 @@ export default function DashboardClient() {
               id="event-title"
               value={newEvent.title || ""}
               onChange={(event) => setNewEvent((prev) => ({ ...prev, title: event.target.value }))}
-              placeholder="Event name"
+              placeholder="Blog post title"
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
             />
           </div>
           <div>
-            <label htmlFor="event-description" className="block text-sm font-medium mb-1.5">
-              Description*
+            <label htmlFor="event-excerpt" className="block text-sm font-medium mb-1.5">
+              Excerpt (Optional)
             </label>
             <textarea
-              id="event-description"
-              value={newEvent.description || ""}
-              onChange={(event) => setNewEvent((prev) => ({ ...prev, description: event.target.value }))}
-              placeholder="Event details"
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition min-h-32"
+              id="event-excerpt"
+              value={newEvent.excerpt || ""}
+              onChange={(event) => setNewEvent((prev) => ({ ...prev, excerpt: event.target.value }))}
+              placeholder="Brief summary of the post"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+              rows={2}
             />
           </div>
           <div>
-            <label htmlFor="event-link" className="block text-sm font-medium mb-1.5">
-              Link*
+            <label htmlFor="event-content" className="block text-sm font-medium mb-1.5">
+              Content*
             </label>
-            <input
-              id="event-link"
-              value={newEvent.link || ""}
-              onChange={(event) => setNewEvent((prev) => ({ ...prev, link: event.target.value }))}
-              placeholder="https://..."
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+            <textarea
+              id="event-content"
+              value={newEvent.content || ""}
+              onChange={(event) => setNewEvent((prev) => ({ ...prev, content: event.target.value }))}
+              placeholder="Write your blog post content here..."
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition min-h-48"
             />
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="event-author" className="block text-sm font-medium mb-1.5">
+                Author
+              </label>
+              <input
+                id="event-author"
+                value={newEvent.author || ""}
+                onChange={(event) => setNewEvent((prev) => ({ ...prev, author: event.target.value }))}
+                placeholder="HABB Team"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+              />
+            </div>
+            <div>
+              <label htmlFor="event-tags" className="block text-sm font-medium mb-1.5">
+                Tags (comma-separated)
+              </label>
+              <input
+                id="event-tags"
+                value={newEvent.tags || ""}
+                onChange={(event) => setNewEvent((prev) => ({ ...prev, tags: event.target.value }))}
+                placeholder="technology, startup, design"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+              />
+            </div>
           </div>
           <div>
             <label htmlFor="event-image" className="block text-sm font-medium mb-1.5">
-              Image*
+              Featured Image (Optional)
             </label>
             <input
               id="event-image"
@@ -1037,7 +1078,7 @@ export default function DashboardClient() {
               type="submit"
               className="px-5 py-2 rounded-lg bg-purple_blue text-white font-semibold shadow hover:bg-purple-800 transition"
             >
-              Save Event
+              Publish Blog
             </button>
           </div>
         </form>
@@ -1442,8 +1483,8 @@ export default function DashboardClient() {
 
       {renderModal({
         open: showEditEvent,
-        title: "Edit Event",
-        subtitle: "Update event details",
+        title: "Edit Blog Post",
+        subtitle: "Update blog details",
         onClose: () => {
           setShowEditEvent(false)
           setEditEvent(null)
@@ -1462,24 +1503,47 @@ export default function DashboardClient() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Description*</label>
+                <label className="block text-sm font-medium mb-1.5">Excerpt</label>
                 <textarea
-                  defaultValue={editEvent.description}
+                  defaultValue={editEvent.excerpt}
                   onChange={(event) =>
-                    setEditEvent((prev) => (prev ? { ...prev, description: event.target.value } : prev))
+                    setEditEvent((prev) => (prev ? { ...prev, excerpt: event.target.value } : prev))
                   }
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition min-h-24"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+                  rows={2}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5">Link*</label>
-                <input
-                  defaultValue={editEvent.link}
+                <label className="block text-sm font-medium mb-1.5">Content*</label>
+                <textarea
+                  defaultValue={editEvent.content}
                   onChange={(event) =>
-                    setEditEvent((prev) => (prev ? { ...prev, link: event.target.value } : prev))
+                    setEditEvent((prev) => (prev ? { ...prev, content: event.target.value } : prev))
                   }
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition min-h-48"
                 />
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Author</label>
+                  <input
+                    defaultValue={editEvent.author}
+                    onChange={(event) =>
+                      setEditEvent((prev) => (prev ? { ...prev, author: event.target.value } : prev))
+                    }
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Tags</label>
+                  <input
+                    defaultValue={typeof editEvent.tags === 'string' ? editEvent.tags : (editEvent.tags || []).join(', ')}
+                    onChange={(event) =>
+                      setEditEvent((prev) => (prev ? { ...prev, tags: event.target.value } : prev))
+                    }
+                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-white/20 bg-white dark:bg-dark_black focus:ring-2 focus:ring-purple_blue outline-none transition"
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1.5">Image</label>

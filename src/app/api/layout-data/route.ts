@@ -5,7 +5,7 @@ const headerData = [
     { label: 'Services', href: '/#services' },
     { label: 'Work', href: '/#work' },
     { label: 'Team', href: '/#team' },
-    { label: 'Events', href: '/#events' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Awards', href: '/#awards' },
     { label: 'Career', href: '/career' },
     { label: 'Contact', href: '/contact' },
@@ -61,7 +61,7 @@ const footerData = {
             { name: "Services", url: "/#services" },
             { name: "Our Work", url: "/#work" },
             { name: "Team", url: "/#team" },
-            { name: "Events", url: "/#events" },
+            { name: "Blog", url: "/blog" },
             { name: "Career", url: "/career" },
             { name: "Contact us", url: "/contact" }
         ]

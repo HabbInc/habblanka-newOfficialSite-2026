@@ -62,9 +62,9 @@ const Header = () => {
   return (
     <>
       <header className={`fixed top-0 z-[70] w-full`}>
-        <div className='container p-3'>
+        <div className='container px-3 py-2 md:p-3'>
           <nav
-            className={`flex items-center py-3 px-4 justify-between ${
+            className={`flex items-center py-2 md:py-3 px-3 md:px-4 justify-between ${
               sticky
                 ? ' rounded-full shadow-sm bg-white dark:bg-dark_black'
                 : null
@@ -72,7 +72,7 @@ const Header = () => {
             <div className='flex items-center'>
               <Logo />
             </div>
-            <div className='hidden lg:flex bg-dark_black/5 dark:bg-white/5 rounded-3xl p-3'>
+            <div className='hidden lg:flex bg-dark_black/5 dark:bg-white/5 rounded-3xl p-2 md:p-3'>
               <ul className='flex gap-0 2xl:gap-1.5'>
                 {menuData?.map((item, index) => (
                   <HeaderLink key={index} item={item} />
@@ -107,7 +107,7 @@ const Header = () => {
                 <div className='flex items-center gap-2'>
                   <Link
                     href={'mailto:habblanka@gmail.com'}
-                    className='hidden lg:block bg-purple_blue text-white font-medium px-3 xl:px-4 py-2 rounded-full hover:opacity-90'>
+                    className='hidden lg:block bg-purple_blue text-white font-medium px-2 xl:px-4 py-1 rounded-full hover:opacity-90'>
                     Contact Us
                   </Link>
                 </div>
@@ -149,8 +149,8 @@ const Header = () => {
           className={`lg:hidden fixed top-0 right-0 h-full w-full bg-white dark:bg-dark_black shadow-lg transform transition-transform duration-300 max-w-xs ${
             sidebarOpen ? 'translate-x-0' : 'translate-x-full'
           } z-50`}>
-          <div className='flex items-center justify-between p-4'>
-            <p className='text-lg font-bold'>Menu</p>
+          <div className='flex items-center justify-between p-3'>
+            <p className='text-base md:text-lg font-bold'>Menu</p>
             <button
               onClick={() => setSidebarOpen(false)}
               aria-label='Close mobile menu'>
@@ -170,7 +170,7 @@ const Header = () => {
               </svg>
             </button>
           </div>
-          <div className='p-4'>
+          <div className='p-3'>
             <ul className='flex flex-col'>
               {menuData && menuData?.map((item, index) => (
                 <MobileHeader key={index} item={item} />
@@ -180,7 +180,7 @@ const Header = () => {
                   <>
                     <button
                       onClick={() => signOut()}
-                      className='flex w-full group font-normal items-center gap-2 transition-all duration-200 ease-in-out text-white dark:text-dark_black px-4 py-2 bg-dark_black rounded-md hover:text-dark_black hover:bg-white border border-dark_black'>
+                      className='flex w-full group font-normal items-center gap-2 transition-all duration-200 ease-in-out text-white dark:text-dark_black px-3 py-1.5 bg-dark_black rounded-md hover:text-dark_black hover:bg-white border border-dark_black'>
                       Sign Out
                       <Icon
                         icon='solar:logout-outline'
@@ -188,7 +188,7 @@ const Header = () => {
                         height='25'
                       />
                     </button>
-                    <div className='group flex gap-2 items-center w-full border border-dark_black dark:border-white px-4 py-2 rounded-md hover:bg-dark_black transition-all duration-200 ease-in-out'>
+                    <div className='group flex gap-2 items-center w-full border border-dark_black dark:border-white px-3 py-1.5 rounded-md hover:bg-dark_black transition-all duration-200 ease-in-out'>
                       <Image
                         src='/images/home/avatar_1.jpg'
                         alt='Image'
@@ -206,7 +206,7 @@ const Header = () => {
                   <>
                     <Link
                       href={'mailto:habblanka@gmail.com'}
-                      className='w-full text-center bg-purple_blue text-white px-4 py-2 rounded-md'>
+                      className='w-full text-center bg-purple_blue text-white px-3 py-1.5 rounded-md'>
                       Contact Us
                     </Link>
                   </>

@@ -11,20 +11,18 @@ const Logo: React.FC<HeaderProps> = () => {
                     alt="HABB logo"
                     width={160}
                     height={46}
-                    style={{ width: '160px', height: 'auto' }}
                     quality={100}
                     priority={true}
-                    className="relative dark:hidden"
+                    className="relative w-[120px] md:w-[160px] h-auto dark:hidden"
                 />
                 <Image
                     src="/images/logo/DarkModeLogo.png"
                     alt="HABB logo dark"
                     width={160}
                     height={46}
-                    style={{ width: '160px', height: 'auto' }}
                     quality={100}
                     priority={true}
-                    className="relative hidden dark:block"
+                    className="relative hidden dark:block w-[120px] md:w-[160px] h-auto"
                 />
             </span>
         </Link>

@@ -8,7 +8,7 @@ import HeroSection from "./components/home/hero";
 import Innovation from "./components/home/innovation";
 import OnlinePresence from "./components/home/online-presence";
 import Solutions from "./components/home/solution";
-import Subscription from "./components/home/subscription";
+// Subscription (events) removed from homepage — now available at /blog
 import WebResult from "./components/home/web-result";
 
 export const metadata: Metadata = {
@@ -47,9 +47,7 @@ export default function Home() {
       <CustomerStories />
       {/* ---------------------Customer Stories section Ends-----------------  */}
 
-      {/* ---------------------Subscription section Starts-----------------  */}
-      <Subscription />
-      {/* ---------------------Subscription section Ends-----------------  */}
+      {/* Subscription section removed; events moved to /blog */}
 
       {/* ---------------------Faq section Starts-----------------  */}
       <Faq />
