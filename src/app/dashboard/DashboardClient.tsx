@@ -34,7 +34,7 @@ type EventItem = WithId<{
   excerpt: string
   content: string
   author: string
-  tags: string
+  tags: string | string[]
   image: string
   _imageFile?: File | null
 }>
@@ -363,7 +363,10 @@ export default function DashboardClient() {
           excerpt: newEvent.excerpt || '',
           content: newEvent.content,
           author: newEvent.author || 'HABB Team',
-          tags: newEvent.tags?.split(',').map(t => t.trim()).filter(Boolean) || [],
+          tags:
+            typeof newEvent.tags === "string"
+              ? newEvent.tags.split(",").map((t) => t.trim()).filter(Boolean)
+              : newEvent.tags || [],
           image,
         }),
       })
@@ -398,7 +401,10 @@ export default function DashboardClient() {
           excerpt: item.excerpt || '',
           content: item.content,
           author: item.author || 'HABB Team',
-          tags: typeof item.tags === 'string' ? item.tags.split(',').map(t => t.trim()).filter(Boolean) : item.tags || [],
+          tags:
+            typeof item.tags === "string"
+              ? item.tags.split(",").map((t) => t.trim()).filter(Boolean)
+              : item.tags || [],
           image,
         }),
       })
@@ -1537,7 +1543,7 @@ export default function DashboardClient() {
                 <div>
                   <label className="block text-sm font-medium mb-1.5">Tags</label>
                   <input
-                    defaultValue={typeof editEvent.tags === 'string' ? editEvent.tags : (editEvent.tags || []).join(', ')}
+                    defaultValue={Array.isArray(editEvent.tags) ? editEvent.tags.join(', ') : editEvent.tags || ''}
                     onChange={(event) =>
                       setEditEvent((prev) => (prev ? { ...prev, tags: event.target.value } : prev))
                     }
