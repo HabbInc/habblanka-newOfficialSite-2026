@@ -80,12 +80,12 @@ export default function BlogPage() {
                   className="group p-6 md:p-8 rounded-3xl bg-white dark:bg-white/5 border border-dark_black/10 dark:border-white/10 hover:shadow-2xl transition-all duration-300 cursor-pointer"
                 >
                   {blog.image && (
-                    <div className="mb-6 w-full overflow-hidden rounded-xl bg-gray-50 dark:bg-white/5 relative h-48 md:h-64">
-                      <Image 
-                        src={blog.image} 
-                        alt={blog.title} 
+                    <div className="mb-6 w-full overflow-hidden rounded-xl bg-gray-50 dark:bg-white/5 relative aspect-square md:h-64 md:aspect-auto">
+                      <Image
+                        src={blog.image}
+                        alt={blog.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300" 
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   )}
@@ -136,22 +136,22 @@ export default function BlogPage() {
             if (e.target === e.currentTarget) setSelectedBlog(null)
           }}
         >
-          <div className="relative bg-white dark:bg-dark_black w-full md:rounded-3xl max-w-5xl shadow-2xl md:my-8 min-h-screen md:min-h-0">
+          <div className="relative bg-white dark:bg-dark_black w-full h-full md:h-auto md:rounded-3xl max-w-full md:max-w-5xl shadow-2xl md:my-8 overflow-y-auto">
             <button
               onClick={() => setSelectedBlog(null)}
-              className="fixed md:absolute top-4 right-4 z-10 p-3 rounded-full bg-dark_black/90 dark:bg-white/90 text-white dark:text-dark_black hover:bg-dark_black dark:hover:bg-white transition-all shadow-lg"
+              className="absolute md:absolute top-3 right-3 md:top-4 md:right-4 z-20 p-3 rounded-full bg-dark_black/90 dark:bg-white/90 text-white dark:text-dark_black hover:bg-dark_black dark:hover:bg-white transition-all shadow-lg"
               aria-label="Close"
             >
               <Icon icon="mdi:close" width={24} />
             </button>
 
-            <div className="p-6 md:p-12 lg:p-16">
+            <div className="p-4 md:p-12 lg:p-16">
               {selectedBlog.image && (
-                <div className="mb-8 rounded-none md:rounded-2xl overflow-hidden -mx-6 md:mx-0">
-                  <div className="relative w-full h-64 md:h-96">
-                    <Image 
-                      src={selectedBlog.image} 
-                      alt={selectedBlog.title} 
+                <div className="mb-8 rounded-none md:rounded-2xl overflow-hidden md:-mx-6">
+                  <div className="relative w-full aspect-square md:h-96 md:aspect-auto">
+                    <Image
+                      src={selectedBlog.image}
+                      alt={selectedBlog.title}
                       fill
                       className="object-cover"
                     />
