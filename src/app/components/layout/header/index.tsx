@@ -173,13 +173,16 @@ const Header = () => {
           <div className='p-3'>
             <ul className='flex flex-col'>
               {menuData && menuData?.map((item, index) => (
-                <MobileHeader key={index} item={item} />
+                <MobileHeader key={index} item={item} onNavigate={() => setSidebarOpen(false)} />
               ))}
               <div className='flex flex-col items-center gap-3 px-2 mt-2'>
                 {user || session?.user ? (
                   <>
                     <button
-                      onClick={() => signOut()}
+                      onClick={() => {
+                        void signOut()
+                        setSidebarOpen(false)
+                      }}
                       className='flex w-full group font-normal items-center gap-2 transition-all duration-200 ease-in-out text-white dark:text-dark_black px-3 py-1.5 bg-dark_black rounded-md hover:text-dark_black hover:bg-white border border-dark_black'>
                       Sign Out
                       <Icon
@@ -188,7 +191,9 @@ const Header = () => {
                         height='25'
                       />
                     </button>
-                    <div className='group flex gap-2 items-center w-full border border-dark_black dark:border-white px-3 py-1.5 rounded-md hover:bg-dark_black transition-all duration-200 ease-in-out'>
+                    <div
+                      onClick={() => setSidebarOpen(false)}
+                      className='group flex gap-2 items-center w-full border border-dark_black dark:border-white px-3 py-1.5 rounded-md hover:bg-dark_black transition-all duration-200 ease-in-out cursor-pointer'>
                       <Image
                         src='/images/home/avatar_1.jpg'
                         alt='Image'
@@ -206,6 +211,7 @@ const Header = () => {
                   <>
                     <Link
                       href={'mailto:habblanka@gmail.com'}
+                      onClick={() => setSidebarOpen(false)}
                       className='w-full text-center bg-purple_blue text-white px-3 py-1.5 rounded-md'>
                       Contact Us
                     </Link>
