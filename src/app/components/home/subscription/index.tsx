@@ -3,72 +3,27 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { TextGenerateEffect } from '@/app/components/ui/text-generate-effect'
-import { assets } from '@/assets/assets'
 
-const events = [
-  {
-    title: 'Jaffna Office Meetup 🚀',
-    description: 'A great team meetup at our Jaffna office — unity, strategy, and fun!',
-    image: assets.jaffna_meetup,
-    link: 'https://habblanka.com/2025/06/25/habb-jaffna/',
-  },
-  {
-    title: 'Vanta 25 Showcase 🚀',
-    description: 'Proud to be part of Vanta 25 – celebrating innovation and tech!',
-    image: assets.vanta25,
-    link: 'https://habblanka.com/2025/07/04/vanta-25-habb-phase-2-begins-a-new-era-of-product-driven-innovation/',
-  },
-  {
-    title: 'Team HABB at SLIIT! 🚀',
-    description: 'A productive discussion at SLIIT on our projects and growth!',
-    image: assets.sliit_meetup,
-    link: 'https://www.linkedin.com/company/habbinc',
-  },
-  {
-    title: 'Exciting Beginnings! 🚀',
-    description: 'Thrilled to announce the launch of HABB Software Company!',
-    image: assets.sliit1,
-    link: 'https://habblanka.com/2025/02/08/habb-launched/',
-  },
-  {
-    title: 'Innovating at Northern Uni! 🚀',
-    description: 'Discussing HABB’s vision and future impact with aspiring minds!',
-    image: assets.north1,
-    link: 'https://habblanka.com/2025/02/16/habb-nothern-uni/',
-  },
-  {
-    title: 'Team HABB at SLIIT! 🚀',
-    description: 'A productive discussion at SLIIT on our projects and growth!',
-    image: assets.north3,
-    link: 'https://www.linkedin.com/company/habbinc',
-  },
-  {
-    title: 'Building Our Future! 🚀',
-    description: 'Guidance & mentorship shaping our journey at HABB!',
-    image: assets.sliit2,
-    link: 'https://www.twitter.com/habb_inc',
-  },
-  {
-    title: 'Team HABB at SLIIT! 🚀',
-    description: 'A productive discussion at SLIIT on our projects and growth!',
-    image: assets.sliitfeb4_1,
-    link: 'https://habblanka.com/2025/03/01/habb-at-sliit/',
-  },
-  {
-    title: 'Inspiring Collaboration! 🚀',
-    description: 'Exchanging ideas and pushing innovation forward!',
-    image: assets.north2,
-    link: 'https://g.co/kgs/W1ugHxc',
-  },
-  {
-    title: 'HABB Inc 🚀',
-    description: 'Go Beyond!',
-    image: assets.habb1,
-    link: 'https://habblanka.com/2025/01/26/habb-inc/',
-  },
-]
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6'
 
 export const Subscription = () => {
+  const [events, setEvents] = useState<any[]>([])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch('/api/page-data')
+        if (!res.ok) throw new Error('Failed to fetch events')
+        const data = await res.json()
+        setEvents(data?.events || [])
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    fetchEvents()
+  }, [])
+
   return (
     <section id='events'>
       <div className='2xl:py-12 py-6'>
@@ -92,7 +47,7 @@ export const Subscription = () => {
     </section>
   )
 
-    function Carousel({ events }: { events: typeof import('./index').events }) {
+    function Carousel({ events }: { events: any[] }) {
       const containerRef = useRef<HTMLDivElement | null>(null)
       const [paused, setPaused] = useState(false)
 
@@ -131,7 +86,7 @@ export const Subscription = () => {
               >
                 <Link href={ev.link} target='_blank' rel='noopener noreferrer' className='block'>
                   <div className='h-36 w-full relative'>
-                    <Image src={ev.image} alt={ev.title} fill style={{ objectFit: 'cover' }} />
+                    <Image src={ev.image || FALLBACK_IMAGE} alt={ev.title} fill style={{ objectFit: 'cover' }} />
                     <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent' />
                   </div>
                   <div className='p-6'>

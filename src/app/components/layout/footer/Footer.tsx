@@ -36,7 +36,7 @@ const Footer = () => {
     <footer className='xl:pt-20 pb-6'>
       <div className='container'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-16 border-b border-dark_black/10 dark:border-white/10'>
-          <div className='flex flex-col gap-6'>
+          <div className='flex flex-col gap-6 items-center text-center md:items-start md:text-left'>
             <Logo />
             <p className='opacity-60 text-sm'>{footerData?.brand?.tagline}</p>
             <div className='flex gap-4 items-center'>
@@ -57,9 +57,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 items-center text-center md:items-start md:text-left'>
             <p className='font-medium'>{footerData?.sitemap?.name}</p>
-            <ul className='flex flex-col gap-2'>
+            <ul className='flex flex-col gap-2 items-center md:items-start'>
               {footerData?.sitemap?.links.map((item:any, index:any) => {
                 return (
                   <li key={index} className='text-dark_black/60 hover:text-black dark:text-white/60 dark:hover:text-white text-sm'>
@@ -70,9 +70,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 items-center text-center md:items-start md:text-left'>
             <p className='font-medium'>{footerData?.otherPages?.name}</p>
-            <ul className='flex flex-col gap-2'>
+            <ul className='flex flex-col gap-2 items-center md:items-start'>
               {footerData?.otherPages?.links.map((item:any, index:any) => {
                 return (
                   <li key={index} className='text-dark_black/60 hover:text-black dark:text-white/60 dark:hover:text-white text-sm'>
@@ -82,9 +82,9 @@ const Footer = () => {
               })}
             </ul>
             {footerData?.websites && (
-              <div className='flex flex-col gap-2 mt-4 pt-4 border-t border-dark_black/10 dark:border-white/10'>
+              <div className='flex flex-col gap-2 mt-4 pt-4 border-t border-dark_black/10 dark:border-white/10 items-center md:items-start'>
                 <p className='font-medium text-sm'>{footerData.websites.name}</p>
-                <ul className='flex flex-col gap-2'>
+                <ul className='flex flex-col gap-2 items-center md:items-start'>
                   {footerData.websites.links.map((w:any, i:number) => (
                     <li key={i} className='text-dark_black/60 hover:text-black dark:text-white/60 dark:hover:text-white text-sm'>
                       <Link href={w.url} target='_blank'>{w.name}</Link>
@@ -95,7 +95,7 @@ const Footer = () => {
             )}
           </div>
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4 items-center text-center md:items-start md:text-left'>
             <p className='font-medium'>{footerData?.contactDetails?.name}</p>
             <p className='text-dark_black/60 dark:text-white/60 text-sm'>
               {footerData?.contactDetails?.address2} <br />
@@ -105,7 +105,7 @@ const Footer = () => {
               {footerData?.contactDetails?.email}
             </Link>
             {footerData?.contactDetails?.phones ? (
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col gap-1 items-center md:items-start'>
                 {footerData.contactDetails.phones.map((p:string, i:number) => (
                   <Link key={i} href={`tel:${p.replace(/\s+/g, '')}`} className='text-dark_black/60 hover:text-black dark:text-white/60 dark:hover:text-white text-sm'>
                     {p}
@@ -117,6 +117,14 @@ const Footer = () => {
                 {footerData?.contactDetails?.phone}
               </Link>
             )}
+            <div className='pt-2'>
+              <Link
+                href='/signin'
+                className='inline-flex text-sm font-medium text-purple hover:text-purple/80 dark:text-purple/80 dark:hover:text-purple'
+              >
+                Admin login
+              </Link>
+            </div>
           </div>
         </div>
         <div className='flex justify-center mt-8'>

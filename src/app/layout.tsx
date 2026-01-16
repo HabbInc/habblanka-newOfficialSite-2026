@@ -14,10 +14,14 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Providers>
           <Header />
-          {children}
+          <main className="min-h-screen">
+            <div className="container">
+              {children}
+            </div>
+          </main>
           <Footer />
           {/* Enhanced Floating WhatsApp Button */}
-          <div className="fixed bottom-6 right-6 z-50 group">
+          <div className="fixed bottom-6 right-6 z-20 group">
             <a
               href="https://api.whatsapp.com/send/?phone=%2B94701111055&text=Hello%2C%20I%27m%20interested%20in%20HABB.%20I%20visited%20your%20website%20and%20would%20like%20to%20learn%20more%20about%20your%20services."
               target="_blank"

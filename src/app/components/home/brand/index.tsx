@@ -132,7 +132,7 @@ function Brand() {
                 .animate-marquee { 
                   display: inline-block; 
                   padding-left: 100%; 
-                  animation: marquee 20s linear infinite; 
+                  animation: marquee 12s linear infinite; 
                 }
 
                 @keyframes marqueeIcons { 
@@ -143,7 +143,7 @@ function Brand() {
                   display: flex; 
                   gap: 3rem; 
                   padding-left: 2rem; 
-                  animation: marqueeIcons 28s linear infinite; 
+                  animation: marqueeIcons 7s linear infinite; 
                 }
               `}</style>
             </div>

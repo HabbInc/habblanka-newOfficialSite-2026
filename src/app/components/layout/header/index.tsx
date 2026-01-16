@@ -61,7 +61,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={`fixed top-0 z-50 w-full`}>
+      <header className={`fixed top-0 z-[70] w-full`}>
         <div className='container p-3'>
           <nav
             className={`flex items-center py-3 px-4 justify-between ${

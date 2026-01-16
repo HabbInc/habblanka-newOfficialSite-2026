@@ -6,9 +6,12 @@ import { motion } from 'motion/react'
 import StarRating from '../../shared/star-rating'
 import { TextGenerateEffect } from '@/app/components/ui/text-generate-effect'
 
+type AvatarItem = { image: string }
+type PageData = { avatarList?: AvatarItem[] }
+
 function HeroSection() {
-  const ref = useRef(null)
-  const [avatarList, setAvatarList] = useState<any>(null);
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [avatarList, setAvatarList] = useState<PageData | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,13 +35,12 @@ function HeroSection() {
   }
 
   return (
-    <section>
-      <div className='relative w-full pt-44 2xl:pb-20 pb-10 before:absolute before:w-full before:h-full before:bg-linear-to-r before:from-blue_gradient before:via-white before:to-yellow_gradient before:rounded-full before:top-24 before:blur-3xl before:-z-10 dark:before:from-dark_blue_gradient dark:before:via-black dark:before:to-dark_yellow_gradient dark:before:rounded-full dark:before:blur-3xl dark:before:-z-10'>
+    <section className='min-h-screen flex items-center justify-center pt-20'>
+      <div className='relative w-full py-10 md:py-14 before:absolute before:w-full before:h-full before:bg-linear-to-r before:from-blue_gradient before:via-white before:to-yellow_gradient before:rounded-full before:top-24 before:blur-3xl before:-z-10 dark:before:from-dark_blue_gradient dark:before:via-black dark:before:to-dark_yellow_gradient dark:before:rounded-full dark:before:blur-3xl dark:before:-z-10'>
         <div className='container relative z-10'>
-          <div ref={ref} className='flex flex-col gap-8'>
+          <div ref={ref} className='flex flex-col items-center gap-8'>
             {/* ---------------- heading text --------------- */}
-            <div
-              className='relative flex flex-col text-center items-center gap-4'>
+            <div className='relative flex flex-col text-center items-center gap-4'>
               <h1 className='leading-tight'>
                 <TextGenerateEffect words="Engineering software that accelerates growth" />
                 <TextGenerateEffect
@@ -59,7 +61,7 @@ function HeroSection() {
               className='flex flex-col items-center justify-center gap-4'>
               <div className='flex flex-col items-center justify-center gap-8 w-full sm:flex-row'>
                 {/* ----------- Get started Link -------------- */}
-                <div className='flex gap-4 w-full max-w-2xl'>
+                <div className='flex gap-4 w-full max-w-2xl justify-center'>
                   <Link
                     href='/contact'
                     className='group bg-purple_blue text-white font-medium flex items-center justify-center py-3 px-6 rounded-full w-full md:w-auto border border-purple_blue transition-all duration-200 ease-in-out hover:bg-transparent hover:text-purple_blue'>
@@ -74,40 +76,40 @@ function HeroSection() {
                     View our services
                   </Link>
                 </div>
-                  <svg
+                <svg
+                  width='40'
+                  height='40'
+                  viewBox='0 0 40 40'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='transform transition-transform duration-200 ease-in-out group-hover:-translate-x-44 group-hover:rotate-45'>
+                  <rect
                     width='40'
                     height='40'
-                    viewBox='0 0 40 40'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='transform transition-transform duration-200 ease-in-out group-hover:-translate-x-44 group-hover:rotate-45'>
-                    <rect
-                      width='40'
-                      height='40'
-                      rx='20'
-                      className='fill-white transition-colors duration-200 ease-in-out group-hover:fill-purple_blue'
-                    />
-                    <path
-                      d='M15.832 15.3334H24.1654V23.6667'
-                      className='stroke-[#1B1D1E] transition-colors duration-200 ease-in-out group-hover:stroke-white'
-                      strokeWidth='1.66667'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                    <path
-                      d='M15.832 23.6667L24.1654 15.3334'
-                      className='stroke-[#1B1D1E] transition-colors duration-500 ease-in-out group-hover:stroke-white'
-                      strokeWidth='1.66667'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
+                    rx='20'
+                    className='fill-white transition-colors duration-200 ease-in-out group-hover:fill-purple_blue'
+                  />
+                  <path
+                    d='M15.832 15.3334H24.1654V23.6667'
+                    className='stroke-[#1B1D1E] transition-colors duration-200 ease-in-out group-hover:stroke-white'
+                    strokeWidth='1.66667'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                  <path
+                    d='M15.832 23.6667L24.1654 15.3334'
+                    className='stroke-[#1B1D1E] transition-colors duration-500 ease-in-out group-hover:stroke-white'
+                    strokeWidth='1.66667'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
 
                 {/* --------------- avatar division -------------- */}
-                <div className='flex items-center gap-7'>
+                <div className='flex items-center gap-7 flex-wrap justify-center'>
                   <ul className='avatar flex flex-row items-center'>
-                    {avatarList?.avatarList?.map((items: any, index: any) => (
-                      <li key={index} className='-mr-2 z-1 avatar-hover:ml-2'>
+                    {avatarList?.avatarList?.map((items, index) => (
+                      <li key={items.image ?? index} className='-mr-2 z-1 avatar-hover:ml-2'>
                         <Image
                           src={items.image}
                           alt='Image'

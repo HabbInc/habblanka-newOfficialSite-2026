@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { getDb } from '@/lib/mongodb'
 
 const avatarList = [
   {
@@ -107,109 +108,6 @@ const onlinePresenceList = [
   },
 ]
 
-const creativeMindList = [
-  {
-    image: '/images/home/creative/senth.png',
-    name: 'Senthalan Vyravanathan',
-    position: 'Software Engineer',
-    linkedinLink: 'http://linkedin.com/in/senthvyra',
-  },
-  {
-    image: '/images/home/creative/thenu.png',
-    name: 'Thenujan Amirthanathan',
-    position: 'Managing Director',
-    linkedinLink: 'http://linkedin.com/in/thenujan-amirthanathan-52034a1b3',
-  },
-  {
-    image: '/images/home/creative/thulaxan.png',
-    name: 'Thulaxan Uthayakumar',
-    position: 'Full Stack Developer',
-    linkedinLink: 'http://linkedin.com/in/thulaxan',
-  },
-  {
-    image: '/images/home/creative/andrew.png',
-    name: 'Andrew Asher',
-    position: 'Managing Director - UK Branch',
-    linkedinLink: 'http://linkedin.com/in/andrew-asher',
-  },
-  {
-    image: '/images/home/creative/sanje.png',
-    name: 'Sanjeev Vijayaratnam',
-    position: 'Human Resources Manager',
-    linkedinLink: 'http://linkedin.com/in/sanjeevvijay',
-  },{
-    image: '/images/home/creative/thanu.png',
-    name: 'Thanushan Vijayaratnam',
-    position: 'DevOps Engineer - UK Branch',
-    linkedinLink: 'http://linkedin.com/in/thanushanvijayaratnam',
-  },
-  {
-    image: '/images/home/creative/thuve.png',
-    name: 'Thuverakan Tharumakulasooriyan',
-    position: 'Software Engineer',
-    linkedinLink: 'https://www.linkedin.com/in/thuverakan10/',
-  },
-  {
-    image: '/images/home/creative/niru.png',
-    name: 'Niruthan Paranthaman',
-    position: 'AI Software Engineer',
-    linkedinLink: 'https://www.linkedin.com/in/niruthan-paranthaman/',
-  },
-  
-  {
-    image: '/images/home/creative/mithu.png',
-    name: 'Mithunan Jeyamohan',
-    position: 'Full-Stack & AI/ML Developer',
-    linkedinLink: 'https://www.linkedin.com/in/mithunan-jeyamohan-26566328a/',
-  },
-  
-  
-  
-  {
-    image: '/images/home/creative/thiba.png',
-    name: 'Thibakar Srisomaskanthan',
-    position: 'AI/ML Engineer',
-    linkedinLink: 'https://www.linkedin.com/in/thibakar-sri/',
-  },
-  {
-    image: '/images/home/creative/pira.png',
-    name: 'Pirakash Ravindran',
-    position: 'UI/UX Designer',
-    linkedinLink: 'https://www.linkedin.com/in/pirakash-ravindran-882a04315/',
-  },
-  {
-    image: '/images/home/creative/abi.png',
-    name: 'Abinaya Rajasekara',
-    position: 'Software Engineer - UK Branch',
-    linkedinLink: 'https://www.linkedin.com/in/abinaya-rajasekara-4905372a8/',
-  },
-  {
-    image: '/images/home/creative/aji.png',
-    name: 'Ajiththana Kalaiyarasan',
-    position: 'Business Analyst',
-    linkedinLink: 'https://www.linkedin.com/in/ak-agiththana/',
-  },
-  {
-    image: '/images/home/creative/thiru.png',
-    name: 'Thiruverakan Thirumal',
-    position: 'AI/ML Engineer - UK Branch',
-    linkedinLink: 'https://www.linkedin.com/in/thiruverakan-t-1877b52a8/',
-  },
-  {
-    image: '/images/home/creative/kaja.png',
-    name: 'Arunthavarajah Kajaraj',
-    position: 'AI/ML Engineer - UK Branch',
-    linkedinLink: 'https://www.linkedin.com/in/arunthavarajah-kajaraj/',
-  },
-  
-  {
-    image: '/images/home/creative/raj.png',
-    name: 'Raj Puvan',
-    position: 'Mentor',
-    linkedinLink: 'http://linkedin.com/in/rajpuvan',
-  },
-]
-
 const WebResultTagList = [
   {
     image: '/images/home/result/creativity.svg',
@@ -270,39 +168,6 @@ const startupPlanList = [
   },
 ]
 
-const faqList = [
-  {
-    faq_que: 'What software development services does HABB offer?',
-    faq_ans:
-      'HABB provides end-to-end software development including custom web applications, mobile apps (iOS/Android), cloud infrastructure, AI-driven solutions, UI/UX engineering, and cybersecurity implementation. We build scalable, production-ready systems tailored to your business needs.',
-  },
-  {
-    faq_que: 'How long does a typical software project take?',
-    faq_ans:
-      'Project timelines vary based on scope and complexity. An MVP typically takes 8-12 weeks, while enterprise-scale applications may require 4-6 months or more. We work in agile sprints to deliver incremental value and maintain flexibility throughout development.',
-  },
-  {
-    faq_que: 'How is pricing structured at HABB?',
-    faq_ans:
-      'We offer flexible engagement models including fixed-price projects, dedicated team arrangements, and time-and-materials contracts. Pricing is tailored to project scope, team composition, and delivery timeline. Contact us for a detailed proposal based on your requirements.',
-  },
-  {
-    faq_que: 'Do you provide ongoing support after project delivery?',
-    faq_ans:
-      'Yes, we provide comprehensive post-launch support including bug fixes, performance monitoring, security updates, and feature enhancements. We offer flexible maintenance packages to ensure your software remains secure, stable, and scalable as your business grows.',
-  },
-  {
-    faq_que: 'What technologies and platforms does HABB work with?',
-    faq_ans:
-      'We work with modern technology stacks including React, Next.js, Node.js, Python, cloud platforms (AWS, Azure, GCP), mobile frameworks (React Native, Flutter), and AI/ML tools. Our engineers select the optimal stack based on your project requirements and long-term scalability needs.',
-  },
-  {
-    faq_que: 'How do you ensure software quality and security?',
-    faq_ans:
-      'Quality is built into our process through code reviews, automated testing, continuous integration, and security audits. We follow industry best practices for secure development, implement data protection measures, and conduct thorough QA testing before every release.',
-  },
-]
-
 const achievementsList = [
   {
     icon: '/images/home/achievement/framer_award.svg',
@@ -332,17 +197,38 @@ const achievementsList = [
   },
 ]
 
+const mapDocs = (docs: any[] = []) =>
+  docs.map((doc) => ({
+    ...doc,
+    id: doc._id?.toString?.(),
+    _id: undefined,
+  }))
 
 export const GET = async () => {
-  return NextResponse.json({
-    avatarList,
-    brandList,
-    innovationList,
-    onlinePresenceList,
-    creativeMindList,
-    WebResultTagList,
-    startupPlanList,
-    faqList,
-    achievementsList,
-  });
-};
+  try {
+    const db = await getDb()
+    const [creativeMindDocs, faqDocs, eventDocs, careerDocs] = await Promise.all([
+      db.collection('teamMembers').find({}).sort({ order: 1, createdAt: -1 }).toArray(),
+      db.collection('faqs').find({}).sort({ order: 1, createdAt: -1 }).toArray(),
+      db.collection('events').find({}).sort({ order: 1, createdAt: -1 }).toArray(),
+      db.collection('careers').find({}).sort({ order: 1, createdAt: -1 }).toArray(),
+    ])
+
+    return NextResponse.json({
+      avatarList,
+      brandList,
+      innovationList,
+      onlinePresenceList,
+      creativeMindList: mapDocs(creativeMindDocs),
+      WebResultTagList,
+      startupPlanList,
+      faqList: mapDocs(faqDocs),
+      achievementsList,
+      events: mapDocs(eventDocs),
+      careers: mapDocs(careerDocs),
+    })
+  } catch (error) {
+    console.error('page-data error', error)
+    return NextResponse.json({ error: 'Failed to load page data' }, { status: 500 })
+  }
+}
