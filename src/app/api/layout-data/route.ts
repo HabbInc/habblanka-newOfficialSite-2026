@@ -77,7 +77,7 @@ const footerData = {
         name: "Websites",
         links: [
             { name: "habb.lk", url: "https://habb.lk" },
-            { name: "habb.uk", url: "https://habb.uk" },
+            { name: "habblanka.com", url: "https://habblanka.com" },
             { name: "habbgate.com", url: "https://habbgate.com" }
         ]
     },
@@ -87,8 +87,8 @@ const footerData = {
         email: "info@habblanka.com",
         phone: "+94 70 1111 055",
         phones: [
+            "+44 7553 977830",
             "+94 70 1111 055",
-            "+94 70 1111 484",
             "+94 77 4704 219",
             "+94 71 0111 484"
         ]
