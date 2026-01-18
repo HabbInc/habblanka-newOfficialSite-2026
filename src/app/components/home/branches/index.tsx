@@ -92,9 +92,15 @@ function Branches() {
           <div className='flex flex-col gap-6 text-center items-center'>
             <p className='text-sm uppercase tracking-[0.2em] text-dark_black/60 dark:text-white/60'>HABB | International Branches</p>
             <div className='max-w-32 text-center'>
-              <h2>
-                <TextGenerateEffect words="Rooted in Jaffna, growing globally" duration={0.5} />
+                <h2>
+                <TextGenerateEffect words="Rooted in Jaffna, growing" duration={0.5} />
+                <TextGenerateEffect
+                  words=" globally"
+                  delay={1}
+                  className="italic font-normal instrument-font"
+                />
               </h2>
+             
             </div>
             <p className='max-w-3xl text-dark_black/60 dark:text-white/60'>
               HABB operates across continents with one promise: same values, same standards, everywhere.
