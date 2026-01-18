@@ -6,6 +6,7 @@ import CustomerStories from "./components/home/customer-stories";
 import Faq from "./components/home/faq";
 import HeroSection from "./components/home/hero";
 import Innovation from "./components/home/innovation";
+import Branches from "./components/home/branches";
 import OnlinePresence from "./components/home/online-presence";
 import Solutions from "./components/home/solution";
 // Subscription (events) removed from homepage — now available at /blog
@@ -42,6 +43,10 @@ export default function Home() {
       {/* ---------------------Creative mind section Starts-----------------  */}
       <CreativeMind />
       {/* ---------------------Creative mind section Ends-----------------  */}
+
+      {/* ---------------------International branches section Starts-----------------  */}
+      <Branches />
+      {/* ---------------------International branches section Ends-----------------  */}
 
       {/* ---------------------Customer Stories section Starts-----------------  */}
       <CustomerStories />

@@ -83,8 +83,7 @@ const footerData = {
     },
     contactDetails: {
         name:"Get In Touch",
-        address1: "No 123, Main Street, Colombo 03, Sri Lanka ",
-        address2: "No 218, Brown Road, Jaffna, Sri Lanka",
+        address1: "183 Downham Way, Bromley BR1 5EL, United Kingdom",
         email: "info@habblanka.com",
         phone: "+94 70 1111 055",
         phones: [

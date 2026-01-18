@@ -1,25 +1,14 @@
-'use client'
-import { useEffect, useState } from 'react';
-import {
-  SiDocker,
-  SiReact,
-  SiLaravel,
-  SiKubernetes,
-  SiGooglecloud,
-  SiNodedotjs,
-  SiTypescript,
-  SiJavascript,
-  SiTailwindcss,
-  SiTensorflow,
-  SiGithub,
-  SiFigma,
-  SiGoogleanalytics,
-  SiMailchimp,
-  SiHubspot,
-  SiFirebase,
-  SiRedux,
-} from 'react-icons/si'
-import { FaBrain, FaBullhorn, FaSearch, FaAmazon } from 'react-icons/fa'
+"use client"
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import flagSriLanka from '@/assets/flags/Flag_of_Sri_Lanka.svg'
+import flagGermany from '@/assets/flags/Flag_of_Germany_(RGB).svg.png'
+import flagFrance from '@/assets/flags/Flag_of_France.svg.png'
+import flagCanada from '@/assets/flags/Flag_of_Canada_(Pantone).svg'
+import flagAustralia from '@/assets/flags/Flag_of_Australia_(converted).svg.png'
+import flagSwitzerland from '@/assets/flags/Flag_of_Switzerland_(Pantone).svg'
+import flagUK from '@/assets/flags/Flag_of_the_United_Kingdom_(1-2).svg'
+import flagIndia from '@/assets/flags/Flag_of_India.svg'
 
 function Brand() {
   const [brandList, setbrandList] = useState<any>(null);
@@ -54,97 +43,67 @@ function Brand() {
             {/* Replace logo slider with running slogan and tech icons strip */}
             <div className='py-3 Xsm:py-7'>
               <div className='overflow-hidden'>
-                <div className='whitespace-nowrap animate-marquee text-center text-sm md:text-base text-dark_black/80 dark:text-white/80' aria-hidden>
-                  HABB — Empowering businesses with smart AI, digital marketing, cloud, and secure access systems · AI · Digital Marketing · Cloud · DevOps · Security · UX · IoT · Automation · Analytics · Integration · Open Source · Design · Growth
+                <div className='animate-marquee-text text-sm md:text-base text-dark_black/80 dark:text-white/80' aria-hidden>
+                  {[0, 1].map((i) => (
+                    <span key={i} className='px-6 whitespace-nowrap'>
+                      HABB — Empowering businesses with smart AI, digital marketing, cloud, and secure access systems · AI · Digital Marketing · Cloud · DevOps · Security · UX · IoT · Automation · Analytics · Integration · Open Source · Design · Growth
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              <div className='mt-4 overflow-hidden'>
-                <div className='flex gap-8 items-center py-6 animate-marquee-icons'>
+              <div className='mt-4 overflow-hidden relative'>
+                <div className='marquee-icons-track py-6'>
                   {[
-                    SiDocker,
-                    SiGooglecloud,
-                    SiReact,
-                    SiLaravel,
-                    SiKubernetes,
-                    SiGooglecloud,
-                    SiNodedotjs,
-                    SiTypescript,
-                    SiJavascript,
-                    SiTailwindcss,
-                    SiTensorflow,
-                    FaBrain,
-                    SiGithub,
-                    SiFigma,
-                    SiGoogleanalytics,
-                    SiMailchimp,
-                    SiHubspot,
-                    SiFirebase,
-                    SiRedux,
-                    FaBrain,
-                    FaBullhorn,
-                    FaSearch,
-                  ].map((IconComp: any, i: number) => (
-                    <div key={i} className='flex flex-col items-center justify-center w-20 opacity-90'>
-                      <IconComp className='text-3xl md:text-4xl' />
-                      <span className='text-xs mt-2 opacity-80 text-center'>{/* label intentionally empty to keep visuals clean */}</span>
-                    </div>
-                  ))}
-
-                  {/* duplicate set for seamless scroll */}
-                  {[
-                    SiDocker,
-                    FaAmazon,
-                    SiGooglecloud,
-                    SiReact,
-                    SiLaravel,
-                    SiKubernetes,
-                    SiGooglecloud,
-                    SiNodedotjs,
-                    SiTypescript,
-                    SiJavascript,
-                    SiTailwindcss,
-                    SiTensorflow,
-                    FaBrain,
-                    SiGithub,
-                    SiFigma,
-                    SiGoogleanalytics,
-                    SiMailchimp,
-                    SiHubspot,
-                    SiFirebase,
-                    SiRedux,
-                    FaBrain,
-                    FaBullhorn,
-                    FaSearch,
-                  ].map((IconComp: any, i: number) => (
-                    <div key={`dup-${i}`} className='flex flex-col items-center justify-center w-20 opacity-90'>
-                      <IconComp className='text-3xl md:text-4xl' />
+                    { src: flagSriLanka, alt: 'Sri Lanka' },
+                    { src: flagUK, alt: 'United Kingdom' },
+                    { src: flagGermany, alt: 'Germany' },
+                    { src: flagFrance, alt: 'France' },
+                    { src: flagCanada, alt: 'Canada' },
+                    { src: flagAustralia, alt: 'Australia' },
+                    { src: flagSwitzerland, alt: 'Switzerland' },
+                    { src: flagIndia, alt: 'India' },
+                    { src: flagSriLanka, alt: 'Sri Lanka' },
+                    { src: flagUK, alt: 'United Kingdom' },
+                    { src: flagGermany, alt: 'Germany' },
+                    { src: flagFrance, alt: 'France' },
+                    { src: flagCanada, alt: 'Canada' },
+                    { src: flagAustralia, alt: 'Australia' },
+                    { src: flagSwitzerland, alt: 'Switzerland' },
+                    { src: flagIndia, alt: 'India' },
+                  ].map((flag: any, i: number) => (
+                    <div key={i} className='inline-flex flex-col items-center justify-center w-20 opacity-95 flex-shrink-0'>
+                      <Image src={flag.src} alt={flag.alt} width={44} height={44} className='rounded-full object-cover shadow-sm' />
                     </div>
                   ))}
                 </div>
               </div>
 
               <style>{`
-                @keyframes marquee { 
-                  0% { transform: translateX(0%); }
+                @keyframes marqueeText { 
+                  0% { transform: translateX(0); }
                   100% { transform: translateX(-50%); }
                 }
-                .animate-marquee { 
-                  display: inline-block; 
-                  padding-left: 100%; 
-                  animation: marquee 12s linear infinite; 
+                .animate-marquee-text { 
+                  display: flex; 
+                  width: max-content;
+                  animation: marqueeText 16s linear infinite; 
+                  align-items: center;
+                  gap: 3rem;
                 }
 
                 @keyframes marqueeIcons { 
                   0% { transform: translateX(0); }
                   100% { transform: translateX(-50%); }
                 }
-                .animate-marquee-icons { 
-                  display: flex; 
-                  gap: 3rem; 
-                  padding-left: 2rem; 
-                  animation: marqueeIcons 7s linear infinite; 
+                .marquee-icons-track { 
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 2rem;
+                  animation: marqueeIcons 20s linear infinite;
+                  white-space: nowrap;
                 }
+                .marquee-icons-track > div { flex-shrink: 0; }
               `}</style>
             </div>
             

@@ -113,7 +113,6 @@ const Footer = () => {
           <div className='flex flex-col gap-4 items-center text-center md:items-start md:text-left'>
             <p className='font-medium'>{footerData?.contactDetails?.name}</p>
             <p className='text-dark_black/60 dark:text-white/60 text-sm'>
-              {footerData?.contactDetails?.address2} <br />
                {footerData?.contactDetails?.address1}
             </p>
             <Link href={`mailto:${footerData?.contactDetails?.email}`} className='text-dark_black/60 hover:text-black dark:text-white/60 dark:hover:text-white text-sm'>

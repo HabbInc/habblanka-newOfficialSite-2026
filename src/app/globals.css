@@ -12,19 +12,18 @@ layer(base);
 @theme {
   --shadow-header_shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
 
-  /* UK Theme - Union Jack Inspired Colors */
-  --color-dark_black: #0a1428;
-  --color-purple_blue: #0d2f5f;
-  --color-purple: #1d4e7a;
-  --color-blue: #1f5a9d;
-  --color-orange: #c8102e;
-  --color-green: #1e7a5f;
-  --color-pink: #d81a5f;
-  --color-blue_gradient: #cce4f5;
-  --color-yellow_gradient: #fef3c7;
-  --color-pale-yellow: #fed7aa;
-  --color-dark_yellow_gradient: #4b3f1f;
-  --color-dark_blue_gradient: #1a2d3f;
+  --color-dark_black: #1b1d1e;
+  --color-purple_blue: #4928fd;
+  --color-purple: #ba81ee;
+  --color-blue: #70b5ff;
+  --color-orange: #ffaf68;
+  --color-green: #79d45e;
+  --color-pink: #f4889a;
+  --color-blue_gradient: #d9f3fc;
+  --color-yellow_gradient: #fdf1d3;
+  --color-pale-yellow: #f6e683;
+  --color-dark_yellow_gradient: #443f32;
+  --color-dark_blue_gradient: #303d42;
 
   --breakpoint-Xsm: 425px;
   --breakpoint-sm: 576px;
@@ -141,23 +140,6 @@ layer(base);
     display: none;
     height: 0px;
     width: 0px;
-  }
-
-  /* UK Theme Accents */
-  .uk-accent {
-    @apply border-l-4 border-orange pl-4;
-  }
-
-  .uk-divider {
-    @apply h-1 bg-gradient-to-r from-purple_blue via-orange to-purple_blue;
-  }
-
-  .uk-badge {
-    @apply inline-flex items-center gap-2 px-3 py-1 bg-orange/10 text-orange font-semibold text-xs rounded-full;
-  }
-
-  .uk-highlight {
-    @apply bg-gradient-to-r from-purple_blue/20 to-orange/20 dark:from-purple_blue/30 dark:to-orange/30;
   }
 }
 
