@@ -1,11 +1,22 @@
 import { NextResponse } from 'next/server'
 import { getDb } from '@/lib/mongodb'
-import { getServerSession } from 'next-auth'
+import { getServerSession, Session } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      name?: string | null
+      email?: string | null
+      image?: string | null
+      role?: string | null
+    }
+  }
+}
 
 const isAdmin = async () => {
   const session = await getServerSession(authOptions)
-  return session?.user?.email === (process.env.ADMIN_EMAIL || 'habblanka@gmail.com')
+  return session?.user?.role === 'admin'
 }
 
 const mapDocs = (docs: any[] = []) =>

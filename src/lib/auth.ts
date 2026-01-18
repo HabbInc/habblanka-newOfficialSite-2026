@@ -2,9 +2,8 @@ import { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "habblanka@gmail.com";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "habbSuperAdmin10$^@";
+import bcrypt from 'bcryptjs'
+import { getDb } from './mongodb'
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -26,16 +25,24 @@ export const authOptions: NextAuthOptions = {
         const email = credentials?.email || "";
         const password = credentials?.password || "";
 
-        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-          return {
-            id: "admin",
-            email: ADMIN_EMAIL,
-            name: "HABB Admin",
-            role: "admin",
-          } as any;
-        }
+        try {
+          const db = await getDb()
+          const user = await db.collection('users').findOne({ email })
+          if (!user || !user.password) return null
 
-        return null;
+          const match = bcrypt.compareSync(password, user.password)
+          if (!match) return null
+
+          return {
+            id: user._id?.toString?.() || 'user',
+            email: user.email,
+            name: user.name || user.email,
+            role: user.role || 'user',
+          } as any
+        } catch (err) {
+          console.error('Auth authorize error:', err)
+          return null
+        }
       },
     }),
     GitHubProvider({

@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import StarRating from '../../shared/star-rating'
 import { TextGenerateEffect } from '@/app/components/ui/text-generate-effect'
+import UKBadge from '../../shared/uk-badge'
 
 type AvatarItem = { image: string }
 type PageData = { avatarList?: AvatarItem[] }
@@ -39,20 +40,20 @@ function HeroSection() {
       <div className='relative w-full py-10 md:py-14 before:absolute before:w-full before:h-full before:bg-linear-to-r before:from-blue_gradient before:via-white before:to-yellow_gradient before:rounded-full before:top-24 before:blur-3xl before:-z-10 dark:before:from-dark_blue_gradient dark:before:via-black dark:before:to-dark_yellow_gradient dark:before:rounded-full dark:before:blur-3xl dark:before:-z-10'>
         <div className='container relative z-10'>
           <div ref={ref} className='flex flex-col items-center gap-8'>
+            {/* UK Badge */}
+            <UKBadge />
             {/* ---------------- heading text --------------- */}
             <div className='relative flex flex-col text-center items-center gap-4'>
               <h1 className='leading-tight'>
-                <TextGenerateEffect words="Your Growth, Engineered by HABB" />
+                <TextGenerateEffect words="Your Success, Engineered in the UK" />
                 <TextGenerateEffect
-                  words="for Global Scale"
+                  words="Delivered Globally"
                   delay={0.8}
                   className="italic font-normal instrument-font"
                 />
               </h1>
               <p className='max-w-2xl text-dark_black/60 dark:text-white/60'>
-                HABB designs and builds secure, scalable products — web, mobile,
-                cloud and AI — with a focus on reliability, performance and rapid time-to-market.
-                Partner with senior engineers who turn strategy into production-ready software.
+                HABB is a UK-based digital engineering partner specialising in designing and building secure, scalable products — web, mobile, cloud and AI. With a focus on reliability, performance and rapid time-to-market, we deliver production-ready software solutions to clients worldwide.
               </p>
             </div>
 

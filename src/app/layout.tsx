@@ -2,6 +2,12 @@ import './globals.css'
 import Header from './components/layout/header'
 import Footer from './components/layout/footer/Footer'
 import Providers from '../providers/Provider'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'HABB - UK-Based Digital Engineering & Software Solutions',
+  description: 'HABB is a UK digital engineering partner specialising in web, mobile, cloud and AI solutions. We design and build secure, scalable products with focus on reliability and rapid time-to-market.',
+}
 
 export default function RootLayout({
   children,

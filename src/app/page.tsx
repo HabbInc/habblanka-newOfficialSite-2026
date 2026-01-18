@@ -12,7 +12,7 @@ import Solutions from "./components/home/solution";
 import WebResult from "./components/home/web-result";
 
 export const metadata: Metadata = {
-  title: "HABB — Your Success, Engineered",
+  title: "HABB — UK Digital Engineering Partner | Your Success, Engineered",
 };
 
 

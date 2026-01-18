@@ -35,6 +35,21 @@ const Footer = () => {
   return (
     <footer className='xl:pt-20 pb-6'>
       <div className='container'>
+        {/* UK Badge Section */}
+        <div className='py-8 mb-8 px-6 rounded-lg bg-gradient-to-r from-purple_blue/10 via-orange/10 to-purple_blue/10 dark:from-purple_blue/20 dark:via-orange/20 dark:to-purple_blue/20 border border-orange/20'>
+          <div className='flex items-center justify-center gap-3 mb-3'>
+            <svg width='24' height='14' viewBox='0 0 60 30' className='rounded'>
+              <rect width='60' height='30' fill='#0d2f5f' />
+              <path d='M0 0L60 30M60 0L0 30' stroke='#fff' strokeWidth='6' />
+              <path d='M30 0v30M0 15h60' stroke='#c8102e' strokeWidth='4' />
+              <path d='M30 0v30M0 15h60' stroke='#fff' strokeWidth='2' />
+            </svg>
+            <span className='font-bold text-dark_black dark:text-white'>HABB - UK Digital Engineering Partner</span>
+          </div>
+          <p className='text-center text-sm text-dark_black/70 dark:text-white/70'>
+            Based in the United Kingdom | Delivering global-scale digital solutions
+          </p>
+        </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-16 border-b border-dark_black/10 dark:border-white/10'>
           <div className='flex flex-col gap-6 items-center text-center md:items-start md:text-left'>
             <Logo />

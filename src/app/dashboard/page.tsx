@@ -5,7 +5,7 @@ import DashboardClient from './DashboardClient'
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
-  const isAdmin = session?.user?.email === (process.env.ADMIN_EMAIL || 'habblanka@gmail.com')
+  const isAdmin = session?.user?.role === 'admin'
 
   if (!isAdmin) {
     redirect('/signin')

@@ -6,7 +6,7 @@ import { ObjectId } from 'mongodb'
 
 const isAdmin = async () => {
   const session = await getServerSession(authOptions)
-  return session?.user?.email === (process.env.ADMIN_EMAIL || 'habblanka@gmail.com')
+  return session?.user?.role === 'admin'
 }
 
 export async function POST(req: Request) {

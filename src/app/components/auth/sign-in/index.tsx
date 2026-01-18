@@ -15,43 +15,12 @@ const Signin = () => {
     email: '',
     password: '',
   }) //login data state
-
-  const [validationErrors, setValidationErrors] = useState({
-    email: '',
-    password: '',
-  }) //validation state
   const [authError, setAuthError] = useState<string | null>(null)
 
-  // Input validation function
-  const validateForm = () => {
-    let errors = { email: '', password: '' }
-    let isValid = true
-
-    if (!loginData.email) {
-      errors.email = 'Email is required.'
-      isValid = false
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginData.email)) {
-      errors.email = 'Please enter a valid email address.'
-      isValid = false
-    }
-
-    if (!loginData.password) {
-      errors.password = 'Password is required.'
-      isValid = false
-    } else if (loginData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long.'
-      isValid = false
-    }
-    setValidationErrors(errors)
-    return isValid
-  }
 
   // form handle submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) {
-      return
-    }
     setLoading(true)
     try {
       const result = await signIn('credentials', {
@@ -61,18 +30,8 @@ const Signin = () => {
       })
 
       if (result?.error) {
-        // Fallback: if NextAuth callback failed (dev/local), allow hardcoded admin credentials
-        if (
-          loginData.email === 'habblanka@gmail.com' &&
-          loginData.password === 'habbSuperAdmin10$^@'
-        ) {
-          localStorage.setItem('user', JSON.stringify({ user: loginData.email }))
-          toast.success('Signed in (fallback)')
-          router.push('/dashboard')
-        } else {
-          setAuthError('👀 Hey, you are not admin')
-          toast.error('Invalid credentials')
-        }
+        setAuthError('Invalid credentials')
+        toast.error('Invalid credentials')
       } else {
         setAuthError(null)
         toast.success('Signed in')
@@ -141,19 +100,8 @@ const Signin = () => {
                         setAuthError(null)
                       }
                       }
-                      className={`w-full rounded-full border px-5 py-3 outline-hidden transition dark:border-white/20 dark:bg-black/40
-                                                ${
-                                                  validationErrors.email
-                                                    ? 'border-red-500'
-                                                    : 'border-stroke'
-                                                } 
-                                                focus:border-dark_black/50 dark:focus:border-white/50 dark:focus:border-opacity-50`}
+                      className={`w-full rounded-full border px-5 py-3 outline-hidden transition dark:border-white/20 dark:bg-black/40 border-stroke focus:border-dark_black/50 dark:focus:border-white/50 dark:focus:border-opacity-50`}
                     />
-                    {validationErrors.email && (
-                      <p className='text-red-500 dark:text-red-500 text-sm mt-1'>
-                        {validationErrors.email}
-                      </p>
-                    )}
                   </div>
                   <div className='mb-5 text-left'>
                     <input
@@ -167,19 +115,8 @@ const Signin = () => {
                         setAuthError(null)
                       }
                       }
-                      className={`w-full rounded-full border px-5 py-3 outline-hidden transition  dark:border-white/20 dark:bg-black/40 
-                                                ${
-                                                  validationErrors.email
-                                                    ? ' border-red-500'
-                                                    : 'border-stroke'
-                                                } 
-                                                focus:border-dark_black/50 dark:focus:border-white/50`}
+                      className={`w-full rounded-full border px-5 py-3 outline-hidden transition  dark:border-white/20 dark:bg-black/40 border-stroke focus:border-dark_black/50 dark:focus:border-white/50`}
                     />
-                    {validationErrors.password && (
-                      <p className='text-red-500 dark:text-red-500 text-sm mt-1'>
-                        {validationErrors.password}
-                      </p>
-                    )}
                   </div>
                   <div className='mb-9'>
                     <button
