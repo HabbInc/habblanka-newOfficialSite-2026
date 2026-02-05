@@ -83,11 +83,10 @@ const footerData = {
     },
     contactDetails: {
         name:"Get In Touch",
-        address1: "183 Downham Way, Bromley BR1 5EL, United Kingdom",
+        address1: "40 Linden Rd, Luton LU4 9QZ, United Kingdom",
         email: "info@habblanka.com",
         phone: "+94 70 1111 055",
         phones: [
-            "+44 7553 977830",
             "+94 70 1111 055",
             "+94 77 4704 219",
             "+94 71 0111 484"
