@@ -210,7 +210,7 @@ const Header = () => {
                 ) : (
                   <>
                     <Link
-                      href={'mailto:habblanka@gmail.com'}
+                      href={'mailto:thuvatheking@gmail.com'}
                       onClick={() => setSidebarOpen(false)}
                       className='w-full text-center bg-purple_blue text-white px-3 py-1.5 rounded-md'>
                       Contact Us

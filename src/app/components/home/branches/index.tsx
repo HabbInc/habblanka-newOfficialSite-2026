@@ -71,7 +71,7 @@ const branches: Branch[] = [
   {
     image: flagUK,
     title: 'United Kingdom',
-    address: '183 Downham Way, Bromley BR1 5EL',
+    address: '40 Linden Rd, Luton LU4 9QZ, United Kingdom',
     map: 'https://share.google/asyPUHzru2m0gUGs0',
     alt: 'United Kingdom flag',
   },
