@@ -64,8 +64,8 @@ const branches: Branch[] = [
   {
     image: flagSwitzerland,
     title: 'Switzerland',
-    address: 'Industriestrasse 35, 3052 Zollikofen',
-    map: 'https://share.google/tdyChNXIPvdpwksTB',
+    address: 'Update coming soon',
+    map: '',
     alt: 'Switzerland flag',
   },
   {
